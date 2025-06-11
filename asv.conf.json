@@ -5,14 +5,25 @@
     "repo": "https://github.com/scikit-bio/scikit-bio.git",
     "environment_type": "conda",
     "conda_channels": ["conda-forge", "bioconda"],
+    "pythons": ["3.9", "3.10", "3.11", "3.12", "3.13"],
     "matrix": {
         "req": {
             "setuptools": [],
             "wheel": [],
             "numpy": [],
-            "cython": []
+            "cython": [],
+            "requests": [],
+            "decorator": [],
+            "natsort": [],
+            "pandas": [],
+            "scipy": [],
+            "h5py": [],
+            "biom-format": [],
+            "statsmodels": [],
+            "patsy": []
         }
     },
+    "build_command": "python -mpip wheel --no-deps --no-build-isolation --no-index -w {build_cache_dir} {build_dir}",
     "branches": ["main"],
     "benchmark_dir": "benchmarks",
     "env_dir": ".asv/env",

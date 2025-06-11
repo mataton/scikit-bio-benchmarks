@@ -1,5 +1,7 @@
-# ASV environments
+# ASV components
 .asv/env
+.asv/html
+.asv/results
 
 # This directory gets created when ASV builds environments
 scikit-bio/

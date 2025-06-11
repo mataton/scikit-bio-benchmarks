@@ -1,9 +1,0 @@
-{
-    "arch": "x86_64",
-    "cpu": "13th Gen Intel(R) Core(TM) i7-1355U",
-    "machine": "BIOD2415",
-    "num_cpu": "12",
-    "os": "Linux 6.6.87.1-microsoft-standard-WSL2",
-    "ram": "'32GB'",
-    "version": 1
-}

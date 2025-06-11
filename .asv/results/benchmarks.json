@@ -1,0 +1,48 @@
+{
+    "diversity.SequenceSuite.time_faith_pd": {
+        "code": "class SequenceSuite:\n    def time_faith_pd(self):\n        return faith_pd(self.b1[0], self.oids1, self.t1)\n\n    def setup(self):\n        self.counts = np.array([0, 1, 1, 4, 2, 5, 2, 4, 1, 2])\n        self.b1 = np.array([[1, 3, 0, 1, 0],\n                            [0, 2, 0, 4, 4],\n                            [0, 0, 6, 2, 1],\n                            [0, 0, 1, 1, 1],\n                            [2, 0, 3, 0, 0]])\n        self.sids1 = list('ABCDE')\n        self.oids1 = ['OTU%d' % i for i in range(1, 6)]\n        self.t1 = TreeNode.read(StringIO(\n            '(((((OTU1:0.5,OTU2:0.5):0.5,OTU3:1.0):1.0):'\n            '0.0,(OTU4:0.75,OTU5:0.75):1.25):0.0)root;'))\n        self.t1_w_extra_tips = TreeNode.read(\n           StringIO('(((((OTU1:0.5,OTU2:0.5):0.5,OTU3:1.0):1.0):0.0,(OTU4:'\n                    '0.75,(OTU5:0.25,(OTU6:0.5,OTU7:0.5):0.5):0.5):1.25):0.0'\n                    ')root;'))",
+        "min_run_count": 2,
+        "name": "diversity.SequenceSuite.time_faith_pd",
+        "number": 0,
+        "param_names": [],
+        "params": [],
+        "repeat": 0,
+        "rounds": 2,
+        "sample_time": 0.01,
+        "type": "time",
+        "unit": "seconds",
+        "version": "cf2ef7827a9db7eaf0668318728ed0c65517aa8cb9910b23bab54fcd8b9dc237",
+        "warmup_time": -1
+    },
+    "dummy.BasicBenchmarks.time_numpy_basic": {
+        "code": "class BasicBenchmarks:\n    def time_numpy_basic(self):\n        \"\"\"Test numpy operations (doesn't import scikit-bio).\"\"\"\n        arr = np.random.random(1000)\n        return np.sum(arr)",
+        "min_run_count": 2,
+        "name": "dummy.BasicBenchmarks.time_numpy_basic",
+        "number": 0,
+        "param_names": [],
+        "params": [],
+        "repeat": 0,
+        "rounds": 2,
+        "sample_time": 0.01,
+        "type": "time",
+        "unit": "seconds",
+        "version": "e4e9871f86b04913216129688b579a218a565f9c910f16568452d8d23d602394",
+        "warmup_time": -1
+    },
+    "dummy.BasicBenchmarks.time_simple_operation": {
+        "code": "class BasicBenchmarks:\n    def time_simple_operation(self):\n        \"\"\"Simple Python operation.\"\"\"\n        return sum(range(1000))",
+        "min_run_count": 2,
+        "name": "dummy.BasicBenchmarks.time_simple_operation",
+        "number": 0,
+        "param_names": [],
+        "params": [],
+        "repeat": 0,
+        "rounds": 2,
+        "sample_time": 0.01,
+        "type": "time",
+        "unit": "seconds",
+        "version": "ee8debbc4e5efe4ad1b38a8634ce17ac8f004d2c13bc141b7a83ace7ddbe759f",
+        "warmup_time": -1
+    },
+    "version": 2
+}

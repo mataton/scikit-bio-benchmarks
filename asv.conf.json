@@ -1,0 +1,21 @@
+{
+    "version": 1,
+    "project": "scikit-bio",
+    "project_url": "https://github.com/scikit-bio/scikit-bio",
+    "repo": "https://github.com/scikit-bio/scikit-bio.git",
+    "environment_type": "conda",
+    "conda_channels": ["conda-forge", "bioconda"],
+    "matrix": {
+        "req": {
+            "setuptools": [],
+            "wheel": [],
+            "numpy": [],
+            "cython": []
+        }
+    },
+    "branches": ["main"],
+    "benchmark_dir": "benchmarks",
+    "env_dir": ".asv/env",
+    "results_dir": ".asv/results",
+    "html_dir": ".asv/html"
+}

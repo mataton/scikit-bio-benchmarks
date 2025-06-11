@@ -1,8 +1,12 @@
 # ASV environments
 .asv/env
 
-# Just copying from the package repo for now, even though this
-# is probably more than what's needed.
+# This directory gets created when ASV builds environments
+scikit-bio/
+
+# Just copying everything else from the package repo for now, even though
+# this is probably more than what's needed.
+
 # Temporary files
 *~
 \#*#

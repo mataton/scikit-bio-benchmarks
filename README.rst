@@ -15,32 +15,33 @@ The benchmarks track performance across different releases to identify regressio
 Features
 --------
 
-- Automated benchmarking of scikit-bio releases
+- Benchmarking of scikit-bio releases
 - Performance tracking across versions
 - Interactive web interface for exploring results
 - GitHub Actions integration for automated deployment
 
-Repository Structure
---------------------
+Contributing
+------------
 
-::
+We welcome contributions! Please:
 
-    scikit-bio-benchmarks/
-    ├── benchmarks/          # Benchmark definitions
-    ├── .github/workflows/   # GitHub Actions workflows
-    ├── asv.conf.json       # ASV configuration
-    ├── versions.txt        # List of versions to benchmark
-    └── README.rst          # This file
+1. Fork the repository
+2. Create a feature branch
+3. Add your benchmarks following existing patterns
+4. Test locally
+5. Submit a pull request
 
-Quick Start
------------
+For benchmark ideas, see the `scikit-bio documentation <https://scikit.bio/>`_
+or check existing `GitHub issues <https://github.com/scikit-bio/scikit-bio/issues>`_.
+
 
 Local Development
 ~~~~~~~~~~~~~~~~~
 
 1. Clone the repository::
 
-    git clone https://github.com/yourusername/scikit-bio-benchmarks.git
+    # or clone your own fork of the repository
+    git clone https://github.com/scikit-bio/scikit-bio-benchmarks.git
     cd scikit-bio-benchmarks
 
 2. Install dependencies::
@@ -61,16 +62,8 @@ Local Development
     asv publish
     asv preview
 
-Adding New Benchmarks
-~~~~~~~~~~~~~~~~~~~~~
-
-1. Create benchmark functions in the ``benchmarks/`` directory
-2. Follow ASV naming conventions (functions starting with ``time_`` or ``mem_``)
-3. Test locally with ``asv run --quick``
-4. Submit a pull request
-
-Automated Benchmarking
-----------------------
+Triggering Benchmarking
+-----------------------
 
 This repository uses GitHub Actions to automatically benchmark new scikit-bio releases:
 
@@ -86,20 +79,6 @@ The workflow will:
 - Deploy to GitHub Pages
 - Commit the updated version list
 
-
-Contributing
-------------
-
-We welcome contributions! Please:
-
-1. Fork the repository
-2. Create a feature branch
-3. Add your benchmarks following existing patterns
-4. Test locally
-5. Submit a pull request
-
-For benchmark ideas, see the `scikit-bio documentation <https://scikit.bio/>`_
-or check existing `GitHub issues <https://github.com/scikit-bio/scikit-bio/issues>`_.
 
 Configuration
 -------------

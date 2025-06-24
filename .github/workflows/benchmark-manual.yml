@@ -73,7 +73,11 @@ jobs:
         run: |
           # Install dependencies needed to build scikit-bio from source
           pip install numpy scipy cython
-          
+
+      - name: Gather machine information
+        run: |
+          asv machine --yes
+
       - name: Run benchmarks
         run: |
           if [ "${{ github.event.inputs.benchmark_all }}" = "true" ]; then

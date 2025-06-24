@@ -1,4 +1,6 @@
-# scikit-bio-benchmarks
+=====================
+scikit-bio-benchmarks
+=====================
 
 Performance benchmarks for the `scikit-bio <https://github.com/scikit-bio/scikit-bio>`_ library.
 

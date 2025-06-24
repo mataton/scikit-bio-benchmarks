@@ -1,13 +1,11 @@
-======================
-scikit-bio-benchmarks
-======================
+# scikit-bio-benchmarks
 
-Performance benchmarks for the `scikit-bio <https://github.com/biocore/scikit-bio>`_ library.
+Performance benchmarks for the `scikit-bio <https://github.com/scikit-bio/scikit-bio>`__ library.
 
 Overview
 --------
 
-This repository contains performance benchmarks for scikit-bio using `ASV (airspeed velocity) <https://asv.readthedocs.io/>`_. 
+This repository contains performance benchmarks for scikit-bio using `ASV (airspeed velocity) <https://asv.readthedocs.io/>`__. 
 The benchmarks track performance across different releases to identify regressions and improvements over time.
 
 🔗 **View Live Results**: https://scikit.bio/scikit-bio-benchmarks
@@ -98,8 +96,8 @@ We welcome contributions! Please:
 4. Test locally
 5. Submit a pull request
 
-For benchmark ideas, see the `scikit-bio documentation <https://scikit.bio/>`_ 
-or check existing `GitHub issues <https://github.com/scikit-bio/scikit-bio/issues>`_.
+For benchmark ideas, see the `scikit-bio documentation <https://scikit.bio/>`__ 
+or check existing `GitHub issues <https://github.com/scikit-bio/scikit-bio/issues>`__.
 
 Configuration
 -------------
@@ -113,9 +111,9 @@ Key configuration files:
 Resources
 ---------
 
-- `ASV Documentation <https://asv.readthedocs.io/>`_
-- `scikit-bio Documentation <https://scikit-bio.org/>`_
-- `GitHub Actions Documentation <https://docs.github.com/en/actions>`_
+- `ASV Documentation <https://asv.readthedocs.io/>`__
+- `scikit-bio Documentation <https://scikit.bio/>`__
+- `GitHub Actions Documentation <https://docs.github.com/en/actions>`__
 
 License
 -------

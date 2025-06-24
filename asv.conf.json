@@ -5,7 +5,7 @@
     "repo": "https://github.com/scikit-bio/scikit-bio.git",
     "environment_type": "conda",
     "conda_channels": ["conda-forge", "bioconda"],
-    "pythons": ["3.9", "3.10", "3.11", "3.12", "3.13"],
+    "pythons": ["3.12"],
     "matrix": {
         "req": {
             "setuptools": [],

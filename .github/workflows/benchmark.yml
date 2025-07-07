@@ -1,7 +1,7 @@
 name: Benchmark Specific Releases
 
 on:
-  pull_request:
+  push:
     branches: [ main ]
   workflow_dispatch:
     inputs:

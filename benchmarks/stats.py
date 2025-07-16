@@ -1,16 +1,84 @@
-""""Benchmarks on skbio.stats"""
-
-from skbio.stats.distance import randdm, permanova
+"""Benchmarks on skbio.stats"""
 
 import numpy as np
+import pandas as pd
 
-class DistanceSuite:
+from skbio.stats.distance import randdm, permanova, anosim, permdisp, mantel
+from skbio.stats.ordination import pcoa, cca, rda, pcoa_biplot
+from skbio.stats.composition import alr, clr, ilr, multi_replace
+from skbio.stats import subsample_counts
 
+
+class Distance:
     def setup(self):
-        dm_size = 6000
-        self.dm = randdm(dm_size, random_fn=42)
+        # asv times out if the size is too large, adjust as necessary
+        size = 1000
+        self.dm = randdm(size)
+        self.dm2 = randdm(size)
         rng = np.random.default_rng(seed=42)
-        self.groups = rng.integers(2, size=dm_size)
+        self.groups = rng.integers(2, size=size)
 
     def time_permanova(self):
         return permanova(self.dm, self.groups)
+
+    def time_anosim(self):
+        return anosim(self.dm, self.groups)
+
+    def time_permdisp(self):
+        return permdisp(self.dm, self.groups)
+
+    def time_mantel(self):
+        return mantel(self.dm, self.dm2)
+
+
+class Ordination:
+    def setup(self):
+        size = 1000
+        self.ids = [f"s{i}" for i in range(size)]
+        self.dm = randdm(size, ids=self.ids)
+        # use Pandas for compatibility across skbio versions
+        self.y = pd.DataFrame(data=np.random.rand(size, 1000), index=self.ids)
+        self.x = pd.DataFrame(data=np.random.rand(size, 5), index=self.ids)
+        self.res = pcoa(self.dm)
+
+    def time_pcoa(self):
+        return pcoa(self.dm)
+
+    def time_cca(self):
+        return cca(self.y, self.x)
+
+    def time_rda(self):
+        return rda(self.y, self.x)
+
+    def time_pcoa_biplot(self):
+        return pcoa_biplot(self.res, self.x)
+
+
+class Composition:
+    def setup(self):
+        size = 1000
+        self.mat = np.random.rand(size, size)
+        # make a random matrix with some zeros in it
+        self.mat_z = self.mat * (self.mat > 0.2)
+        self.counts = None
+
+    def time_clr(self):
+        return clr(self.mat)
+
+    def time_alr(self):
+        return alr(self.mat)
+
+    def time_ilr(self):
+        return ilr(self.mat)
+
+    def time_multi_replace(self):
+        return multi_replace(self.mat_z)
+
+
+class Subsample:
+    def setup(self):
+        size = 1000
+        self.counts = np.random.default_rng().integers(low=0, high=100, size=size)
+
+    def time_subsample_counts(self):
+        return subsample_counts(self.counts, 100)

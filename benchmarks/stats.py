@@ -80,7 +80,7 @@ class Composition:
         return ancom(self.df, self.groups)
 
     def time_dirmult_ttest(self):
-        return dirmult_ttest(self.df, self.groups)
+        return dirmult_ttest(self.df, self.groups, treatment="0", reference="1")
 
 
 class Subsample:

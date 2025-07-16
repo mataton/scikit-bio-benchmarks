@@ -5,7 +5,7 @@ import pandas as pd
 
 from skbio.stats.distance import randdm, permanova, anosim, permdisp, mantel
 from skbio.stats.ordination import pcoa, cca, rda, pcoa_biplot
-from skbio.stats.composition import alr, clr, ilr, multi_replace
+from skbio.stats.composition import alr, clr, ilr, multi_replace, dirmult_ttest, ancom
 from skbio.stats import subsample_counts
 
 
@@ -58,9 +58,11 @@ class Composition:
     def setup(self):
         size = 1000
         self.mat = np.random.rand(size, size)
+        self.df = pd.DataFrame(data=self.mat)
         # make a random matrix with some zeros in it
         self.mat_z = self.mat * (self.mat > 0.2)
-        self.counts = None
+        rng = np.random.default_rng(seed=42)
+        self.groups = pd.Series(data=rng.integers(2, size=size))
 
     def time_clr(self):
         return clr(self.mat)
@@ -73,6 +75,12 @@ class Composition:
 
     def time_multi_replace(self):
         return multi_replace(self.mat_z)
+
+    def time_ancom(self):
+        return ancom(self.df, self.groups)
+
+    def time_dirmult_ttest(self):
+        return dirmult_ttest(self.df, self.groups)
 
 
 class Subsample:

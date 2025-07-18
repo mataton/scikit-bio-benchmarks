@@ -12,7 +12,7 @@ from skbio.stats import subsample_counts
 class Distance:
     def setup(self):
         # asv times out if the size is too large, adjust as necessary
-        size = 1000
+        size = 500
         self.dm = randdm(size)
         self.dm2 = randdm(size)
         rng = np.random.default_rng(seed=42)
@@ -33,7 +33,8 @@ class Distance:
 
 class Ordination:
     def setup(self):
-        size = 1000
+        # size = number of samples
+        size = 500
         self.ids = [f"s{i}" for i in range(size)]
         self.dm = randdm(size, ids=self.ids)
         # use Pandas for compatibility across skbio versions
@@ -56,13 +57,13 @@ class Ordination:
 
 class Composition:
     def setup(self):
-        size = 1000
+        size = 500
         self.mat = np.random.rand(size, size)
         self.df = pd.DataFrame(data=self.mat)
         # make a random matrix with some zeros in it
         self.mat_z = self.mat * (self.mat > 0.2)
         rng = np.random.default_rng(seed=42)
-        self.groups = pd.Series(data=rng.integers(2, size=size))
+        self.groups = pd.Series(data=rng.integers(2, size=size).astype(str))
 
     def time_clr(self):
         return clr(self.mat)
@@ -78,6 +79,8 @@ class Composition:
 
     def time_ancom(self):
         return ancom(self.df, self.groups)
+    # give ancom 2 minutes before timing out (default is 60s)
+    time_ancom.timeout = 120.0
 
     def time_dirmult_ttest(self):
         return dirmult_ttest(self.df, self.groups, treatment="0", reference="1")

@@ -48,7 +48,7 @@ jobs:
       - name: Run benchmarks
         run: |
             # this will run all benchmarks, except those which have been run before
-            asv run HASHFILE:versions.txt --skip-existing-commits ALL
+            asv run --skip-existing-commits HASHFILE:versions.txt
 
       - name: Generate HTML
         run: asv publish

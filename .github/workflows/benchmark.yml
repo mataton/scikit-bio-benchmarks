@@ -3,17 +3,6 @@ name: Benchmark Specific Releases
 on:
   push:
     branches: [ main ]
-  workflow_dispatch:
-    inputs:
-      new_version:
-        description: 'New release version to add and benchmark (e.g., 0.6.4)'
-        required: false
-        default: ''
-      benchmark_all:
-        description: 'Re-benchmark all versions (only needed if benchmark code changed)'
-        type: boolean
-        required: false
-        default: false
 
 permissions:
   contents: write
@@ -42,29 +31,6 @@ jobs:
       - name: Install ASV
         run: pip install asv
 
-      - name: Setup versions file
-        run: |
-          # Create versions.txt if it doesn't exist
-          if [ ! -f "versions.txt" ]; then
-            echo "Creating initial versions.txt file"
-            # Start with current latest release
-            echo "0.6.3" > versions.txt
-          fi
-
-      - name: Add new version if specified
-        if: github.event.inputs.new_version != ''
-        run: |
-          NEW_VERSION="${{ github.event.inputs.new_version }}"
-          echo "Adding new version: $NEW_VERSION"
-          
-          # Check if version already exists
-          if grep -q "^$NEW_VERSION$" versions.txt; then
-            echo "Version $NEW_VERSION already exists in versions.txt"
-          else
-            echo "$NEW_VERSION" >> versions.txt
-            echo "Added $NEW_VERSION to versions.txt"
-          fi
-
       - name: Show versions to benchmark
         run: |
           echo "Versions to benchmark:"
@@ -81,35 +47,11 @@ jobs:
 
       - name: Run benchmarks
         run: |
-          if [ "${{ github.event.inputs.benchmark_all }}" = "true" ]; then
-            echo "Re-benchmarking all versions (this will take a long time)..."
-            # Benchmark all versions in the file - only needed if benchmark code changed
-            asv run HASHFILE:versions.txt
-          elif [ -n "${{ github.event.inputs.new_version }}" ]; then
-            echo "Benchmarking new version only (recommended for new releases)..."
-            # Just benchmark the new version - results will be added to existing data
-            asv run ${{ github.event.inputs.new_version }}^!
-          else
-            echo "Running benchmarks for any missing versions..."
-            # This will only run benchmarks for versions that don't have results yet
-            asv run HASHFILE:versions.txt
-          fi
+            # this will run all benchmarks, except those which have been run before
+            asv run HASHFILE:versions.txt --skip-existing-commits ALL
 
       - name: Generate HTML
         run: asv publish
-
-      - name: Commit updated versions file
-        if: github.event.inputs.new_version != ''
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add versions.txt
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "Add version ${{ github.event.inputs.new_version }} to benchmark list"
-            git push
-          fi
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

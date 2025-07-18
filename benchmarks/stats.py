@@ -84,6 +84,8 @@ class Composition:
 
     def time_dirmult_ttest(self):
         return dirmult_ttest(self.df, self.groups, treatment="0", reference="1")
+    # give dirmult_ttest 2 minutes before timing out (default is 60s)
+    time_dirmult_ttest.timeout = 120.0
 
 
 class Subsample:

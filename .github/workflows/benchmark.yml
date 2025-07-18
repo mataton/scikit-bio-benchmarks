@@ -33,15 +33,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.x'
-          
+
       - name: Install ASV
         run: pip install asv
-        
+
       - name: Setup versions file
         run: |
           # Create versions.txt if it doesn't exist
@@ -50,7 +50,7 @@ jobs:
             # Start with current latest release
             echo "0.6.3" > versions.txt
           fi
-          
+
       - name: Add new version if specified
         if: github.event.inputs.new_version != ''
         run: |
@@ -64,12 +64,12 @@ jobs:
             echo "$NEW_VERSION" >> versions.txt
             echo "Added $NEW_VERSION to versions.txt"
           fi
-          
+
       - name: Show versions to benchmark
         run: |
           echo "Versions to benchmark:"
           cat versions.txt
-          
+
       - name: Install scikit-bio dependencies
         run: |
           # Install dependencies needed to build scikit-bio from source
@@ -94,10 +94,10 @@ jobs:
             # This will only run benchmarks for versions that don't have results yet
             asv run HASHFILE:versions.txt
           fi
-          
+
       - name: Generate HTML
         run: asv publish
-        
+
       - name: Commit updated versions file
         if: github.event.inputs.new_version != ''
         run: |
@@ -110,19 +110,19 @@ jobs:
             git commit -m "Add version ${{ github.event.inputs.new_version }} to benchmark list"
             git push
           fi
-        
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
-        
+
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v3
         with:
           path: '.asv/html'
-          
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-        
+
       - name: Summary
         run: |
           echo "Benchmarking completed!"

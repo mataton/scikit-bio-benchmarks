@@ -58,13 +58,23 @@ class Ordination:
 
 class Composition:
     def setup(self):
+        # size = 500
+        # self.mat = np.random.rand(size, size)
+        # self.df = pd.DataFrame(data=self.mat)
+        # # make a random matrix with some zeros in it
+        # self.mat_z = self.mat * (self.mat > 0.2)
+        # rng = np.random.default_rng(seed=42)
+        # self.groups = pd.Series(data=rng.integers(2, size=size).astype(str))
+
         size = 500
-        self.mat = np.random.rand(size, size)
-        self.df = pd.DataFrame(data=self.mat)
-        # make a random matrix with some zeros in it
+        ids = [f"s{i}" for i in range(size)]
+        # strictly positive data for compositional methods
+        self.mat = np.random.default_rng(42).random((size, size)) + 1e-6
+        self.df = pd.DataFrame(self.mat, index=ids)
         self.mat_z = self.mat * (self.mat > 0.2)
         rng = np.random.default_rng(seed=42)
-        self.groups = pd.Series(data=rng.integers(2, size=size).astype(str))
+        self.groups = pd.Series(rng.integers(2, size=size).astype(str), index=ids)
+
 
     def time_clr(self):
         return clr(self.mat)

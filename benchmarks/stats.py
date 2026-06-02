@@ -51,7 +51,8 @@ class Ordination:
     def time_rda(self):
         return rda(self.y, self.x)
 
-    def time_pcoa_biplot(self):
+    # old versions of pcoa_biplot fail
+    def _disabled_time_pcoa_biplot(self):
         return pcoa_biplot(self.res, self.x)
 
 
